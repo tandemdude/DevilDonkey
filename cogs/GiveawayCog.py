@@ -13,7 +13,7 @@ class Giveaway(commands.Cog):
 
 	def __init__(self, bot):
 		self.bot = bot
-		self.previous_giveaway = 0
+		self.previous_giveaway_id = 0
 
 	@commands.command()
 	@commands.has_role('BotUser')
@@ -92,7 +92,7 @@ class Giveaway(commands.Cog):
 				else:
 					await giveaway_channel.send('No one entered the giveaway 😢')
 
-		self.previous_giveaway = giveaway_msg.id
+		self.previous_giveaway_id = giveaway_msg.id
 
 	@commands.command()
 	@commands.has_role('BotUser')
@@ -106,7 +106,7 @@ class Giveaway(commands.Cog):
 		giveaway_channel = self.bot.get_channel(config["giveaway_ch"])
 
 		await ctx.send('Rerolling most recent giveaway.')
-		reacted_giveaway_msg = await giveaway_channel.fetch_message(self.previous_giveaway)
+		reacted_giveaway_msg = await giveaway_channel.fetch_message(self.previous_giveaway_id)
 
 		for reaction in reacted_giveaway_msg.reactions:
 
