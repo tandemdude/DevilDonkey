@@ -73,15 +73,12 @@ class Giveaway(commands.Cog):
 		for reaction in reacted_giveaway_msg.reactions:
 
 			if str(reaction.emoji) == '🎉':
-				print('reaction found')
 				giveaway_reaction = reaction
 				reacted_users = await giveaway_reaction.users().flatten()
-				print('flattened')
 				users = [u for u in reacted_users if not u.bot]
 
 				if len(users) > 0:
 					giveaway_winners = random.sample(users, int(number_of_winners))
-					print('selected winners')
 					new_embed = discord.Embed(title=f'{number_of_winners}x {item}', description='Giveaway Ended')
 					new_embed.set_footer(text=f'Ended on {end_time[0]} at {end_time[1]} UTC')
 					await giveaway_msg.edit(embed=new_embed)
