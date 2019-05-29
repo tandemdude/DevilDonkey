@@ -6,14 +6,14 @@ from discord.ext import commands
 import time
 import json
 
-extensions = ['cogs.OnReadyCog', 'cogs.PurgeCog', 'cogs.CustomCommandsCog', 'cogs.AnnouncementsCog', 'cogs.SetupCog', 'cogs.WelcomeCog']
+extensions = ['cogs.OnReadyCog', 'cogs.PurgeCog', 'cogs.CustomCommandsCog', 'cogs.AnnouncementsCog', 'cogs.SetupCog', 'cogs.WelcomeCog', 'cogs.GiveawayCog']
 config_file = 'config.json'
 
 with open(config_file) as json_file:  
     config = json.load(json_file)
 
 prefix = config['prefix']
-token = 'NTc2NDI2NjUyNTUzNDQ1NDA3.XOBNCQ.kFBTdFJWZPjsLgilAHZOcHspDXk'
+token = 'YOUR TOKEN GOES HERE'
 
 bot = commands.Bot(command_prefix=prefix)
 
