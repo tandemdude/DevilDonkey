@@ -9,6 +9,9 @@ class CustomCommands(commands.Cog):
     async def website(self, ctx):
         await ctx.send('**Your URL Here**')
 
+    @commands.command()
+    async def ip(self, ctx):
+    	await ctx.send('**Your Server IP Here**')
 
 def setup(bot):
     bot.add_cog(CustomCommands())

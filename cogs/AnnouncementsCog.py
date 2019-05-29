@@ -19,15 +19,17 @@ class Announcements(commands.Cog):
 		with open('config.json') as json_file:
 			config = json.load(json_file)
 
+		def check(m):
+			return m.author == ctx.author and m.channel == ctx.channel
+
 		announcement_channel_id = config['announce_ch']
 		await ctx.send('Please type the announcement title.')
-		title = await self.bot.wait_for('message', check=lambda m: m.author == ctx.author, timeout=30)
+		title = await self.bot.wait_for('message', check=check, timeout=30)
 		await ctx.send('Please enter the announcement text.')
-		announcement = await self.bot.wait_for('message', check=lambda m: m.author == ctx.author, timeout=30)
+		announcement = await self.bot.wait_for('message', check=check, timeout=30)
 		a = discord.Embed(title=title.content.title(), description=announcement.content, color=0xde2bea)
 		announcement_channel = self.bot.get_channel(announcement_channel_id)
-		await announcement_channel.send('@everyone')
-		await announcement_channel.send(embed=a)
+		await announcement_channel.send('@everyone', embed=a)
 
 
 def setup(bot):

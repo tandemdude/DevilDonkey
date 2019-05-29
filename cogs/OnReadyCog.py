@@ -9,6 +9,7 @@ with open('config.json') as json_file:
 
 
 class OnReady(commands.Cog):
+	
     def __init__(self, bot):
         self.bot = bot
 

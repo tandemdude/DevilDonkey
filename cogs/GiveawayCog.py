@@ -93,6 +93,7 @@ class Giveaway(commands.Cog):
 		self.previous_giveaway = giveaway_msg.id
 
 	@commands.command()
+	@commands.has_role('BotUser')
 	async def greroll(self, ctx):
 		"""Rerolls one entry for the previous giveaway
 		"""
