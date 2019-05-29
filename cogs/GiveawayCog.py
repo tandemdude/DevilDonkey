@@ -83,8 +83,10 @@ class Giveaway(commands.Cog):
 					new_embed.set_footer(text=f'Ended on {end_time[0]} at {end_time[1]} UTC')
 					await giveaway_msg.edit(embed=new_embed)
 					mentions = []
+
 					for user in giveaway_winners:
 						mentions.append(user.mention)
+
 					char = ', '
 					await giveaway_channel.send(f'🎉 Congratulations {char.join(mentions)} for winning `{item}`! 🎉')
 				else:
@@ -96,6 +98,7 @@ class Giveaway(commands.Cog):
 	@commands.has_role('BotUser')
 	async def greroll(self, ctx):
 		"""Rerolls one entry for the previous giveaway
+		WARNING: Anyone who entered since first drawn will be included in the reroll
 		"""
 		with open('config.json') as json_file:
 			config = json.load(json_file)
@@ -108,10 +111,8 @@ class Giveaway(commands.Cog):
 		for reaction in reacted_giveaway_msg.reactions:
 
 			if str(reaction.emoji) == '🎉':
-				print('reaction found')
 				giveaway_reaction = reaction
 				reacted_users = await giveaway_reaction.users().flatten()
-				print('flattened')
 				users = [u for u in reacted_users if not u.bot]
 				
 				if len(users) > 0:
