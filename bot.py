@@ -12,7 +12,9 @@ parser = configparser.ConfigParser()
 parser.read('TOKEN.INI')
 
 # List of all extensions to be loaded
-extensions = ['cogs.OnReadyCog', 'cogs.PurgeCog', 'cogs.CustomCommandsCog', 'cogs.AnnouncementsCog', 'cogs.SetupCog', 'cogs.WelcomeCog', 'cogs.GiveawayCog']
+extensions = ['cogs.OnReadyCog', 'cogs.PurgeCog', 'cogs.CustomCommandsCog', 'cogs.AnnouncementsCog', 
+				'cogs.SetupCog', 'cogs.WelcomeCog', 'cogs.GiveawayCog', 'cogs.UptimeCog', 'cogs.OwnerCog']
+# Configuration file name
 config_file = 'config.json'
 
 # Opens configuration file
