@@ -100,26 +100,31 @@ class Giveaway(commands.Cog):
 		"""Rerolls one entry for the previous giveaway
 		WARNING: Anyone who entered since first drawn will be included in the reroll
 		"""
-		with open('config.json') as json_file:
-			config = json.load(json_file)
+		if self.previous_giveaway_id:
 
-		giveaway_channel = self.bot.get_channel(config["giveaway_ch"])
+			with open('config.json') as json_file:
+				config = json.load(json_file)
 
-		await ctx.send('Rerolling most recent giveaway.')
-		reacted_giveaway_msg = await giveaway_channel.fetch_message(self.previous_giveaway_id)
+			giveaway_channel = self.bot.get_channel(config["giveaway_ch"])
 
-		for reaction in reacted_giveaway_msg.reactions:
+			await ctx.send('Rerolling most recent giveaway.')
+			reacted_giveaway_msg = await giveaway_channel.fetch_message(self.previous_giveaway_id)
 
-			if str(reaction.emoji) == '🎉':
-				giveaway_reaction = reaction
-				reacted_users = await giveaway_reaction.users().flatten()
-				users = [u for u in reacted_users if not u.bot]
-				
-				if len(users) > 0:
-					giveaway_winner = random.choice(users)
-					await giveaway_channel.send(f'The new winner is {giveaway_winner.mention}')
-				else:
-					await giveaway_channel.send('No one entered the giveaway 😢')
+			for reaction in reacted_giveaway_msg.reactions:
+
+				if str(reaction.emoji) == '🎉':
+					giveaway_reaction = reaction
+					reacted_users = await giveaway_reaction.users().flatten()
+					users = [u for u in reacted_users if not u.bot]
+
+					if len(users) > 0:
+						giveaway_winner = random.choice(users)
+						await giveaway_channel.send(f'The new winner is {giveaway_winner.mention}')
+					else:
+						await giveaway_channel.send('No one entered the giveaway 😢')
+
+		else:
+			await ctx.send('No previous giveaway was found.')
 
 
 def setup(bot):
